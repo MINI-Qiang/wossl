@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from app import rsa
-from base import cer_csr,cer_key,csr_key,jjm_1,jjm_2
+from rsa.app import rsa
+from rsa.base import cer_csr,cer_key,csr_key,jjm_1,jjm_2
 from flask import render_template,request
 
 @rsa.route('/rsa_check',methods=['POST'])

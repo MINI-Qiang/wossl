@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from app import app
+import app
 from views import *
 
 # 测试环境

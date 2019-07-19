@@ -17,7 +17,7 @@ def split_string(string,width):
 def pubkey_tiqu(key_pem_data,key_passwd=None):
     try:
         key=serialization.load_pem_private_key(key_pem_data,password=key_passwd,backend=default_backend())
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'私钥解析失败！'}
     public_key_pem=key.public_key().public_bytes(serialization.Encoding.PEM,serialization.PublicFormat.SubjectPublicKeyInfo)
     public_key_der=key.public_key().public_bytes(serialization.Encoding.DER,serialization.PublicFormat.SubjectPublicKeyInfo)
@@ -29,7 +29,7 @@ def pubkey_asysi(public_pem_data):
     rep_reuslt={}
     try:
         public_key=serialization.load_pem_public_key(public_pem_data,backend=default_backend())
-    except Exception,e:        
+    except Exception as e:        
         return {'error':False,'msg':u'公钥解析失败！'}
     # 密钥类型
     if isinstance(public_key,rsa.RSAPublicKey):
@@ -53,12 +53,12 @@ def pubkey_asysi(public_pem_data):
 def pub_priv_checker(pub_pem_data,key_pem_data,pass_key=None):
     try:
         pub_key=serialization.load_pem_public_key(pub_pem_data,backend=default_backend())
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'公钥内容错误！'}
 
     try:
         priv_key=serialization.load_pem_private_key(key_pem_data,password=pass_key,backend=default_backend())
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'私钥内容或KEY错误！'}
     public_key=pub_key.public_bytes(serialization.Encoding.PEM,serialization.PublicFormat.SubjectPublicKeyInfo)
     key_public_key=priv_key.public_key().public_bytes(serialization.Encoding.PEM,serialization.PublicFormat.SubjectPublicKeyInfo)
@@ -161,7 +161,7 @@ def pub_priv_creater(mysf,myqd,key_pass):
 def private_xiugai(key_pem_data,old_key,new_key):
     try:
         priv_key=serialization.load_pem_private_key(key_pem_data,password=old_key,backend=default_backend())
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'私钥内容或原密码错误！'}
 
     try:
@@ -170,6 +170,6 @@ def private_xiugai(key_pem_data,old_key,new_key):
             format=serialization.PrivateFormat.PKCS8,
             encryption_algorithm=serialization.BestAvailableEncryption(new_key),
         )
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'新密码格式错误！'}
     return {'error':True,'new_key':new_priv_key,'new_pass':new_key}

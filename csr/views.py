@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from app import csr
-from base import readCSR,create_csr,create_cert
+from csr.app import csr
+from csr.base import readCSR,create_csr,create_cert
 from flask import render_template,request
 
 # CSR查看
@@ -69,6 +69,6 @@ def cert_create_hander():
     try:
         root=request.form['root']
         return render_template('tools/cert_create_result.html',result=create_cert(subject_com_name,subject_bumen_name,subject_zuzhi_name,subject_city_name,subject_shengfen_name,subject_guojia_name,issuer_com_name,issuer_zuzhi_name,issuer_guojia_name,True,before_time,after_time,mysf,beiyong_name,myqd,qmsf,key_pass))
-    except Exception,e:
+    except Exception as e:
         return render_template('tools/cert_create_result.html',result=create_cert(subject_com_name,subject_bumen_name,subject_zuzhi_name,subject_city_name,subject_shengfen_name,subject_guojia_name,issuer_com_name,issuer_zuzhi_name,issuer_guojia_name,False,before_time,after_time,mysf,beiyong_name,myqd,qmsf,key_pass))
         

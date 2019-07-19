@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from app import feis
-from base import pubkey_tiqu,pubkey_asysi,pub_priv_checker,pub_priv_creater,private_xiugai
+from feis.app import feis
+from feis.base import pubkey_tiqu,pubkey_asysi,pub_priv_checker,pub_priv_creater,private_xiugai
 from flask import request,render_template
 
 # 公钥提取

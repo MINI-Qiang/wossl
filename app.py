@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 from flask import Flask
-from cer import cer
-from csr import csr
-from rsa import rsa
-from des import des
-from hashs import hashs
-from feis import feis
+from cer.views import cer
+from csr.views import csr
+from rsa.views import rsa
+from des.views import des
+from hashs.views import hashs
+from feis.views import feis
 
 app=Flask(__name__)
 

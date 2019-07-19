@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
-from app import des
-from base import encrypt,decrypt
+from des.app import des
+from des.base import encrypt,decrypt
 from flask import render_template,request
 
 @des.route('/aes_encrypt',methods=['POST'])
 def aes_encrypt():
     text=bytes(request.form['text'].encode('utf-8'))
-    key=bytes(request.form['key'])
+    key=bytes(request.form['key'].encode('utf-8'))
     mode=request.form['mode']
-    iv=bytes(request.form['iv'])
+    iv=bytes(request.form['iv'].encode('utf-8'))
     out_mode=request.form['out_mode']
     return render_template('tools/cipher_result.html',flag='AES',aes_result=encrypt(text,'AES',key,mode,iv,out_mode))
 

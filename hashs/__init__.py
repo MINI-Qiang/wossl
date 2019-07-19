@@ -1,2 +1,2 @@
-from app import hashs
-import views
+from hashs.app import hashs
+import hashs.views

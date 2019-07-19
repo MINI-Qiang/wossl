@@ -20,8 +20,8 @@ def readCSR(pem_req_data):
     csr=None
     try:
         csr=x509.load_pem_x509_csr(pem_req_data,default_backend())
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'CSR内容错误！'}
     # csr句柄获取
     if isinstance(csr,x509.CertificateSigningRequest):
@@ -44,15 +44,15 @@ def readCSR(pem_req_data):
                         if isinstance(value,x509.DNSName):
                             public_extensions.append(value.value)
                 rep_reuslt['extension']=','.join(public_extensions)
-            except Exception,e:
-                print e
+            except Exception as e:
+                print(e)
                 return {'error':False,'msg':u'CSR扩展错误！'}
         else:
             rep_reuslt['extension']=''
         # 获取密钥强度
         try:
             rep_reuslt['public_key_size']=str(csr.public_key().key_size)
-        except Exception,e:
+        except Exception as e:
             return {'error':False,'msg':u'无法识别：未知加密算法！'}
         # 密钥类型
         if isinstance(csr.public_key(),rsa.RSAPublicKey):
@@ -124,13 +124,13 @@ def create_csr(com_name,bumen_name,zuzhi_name,city_name,shengfen_name,guojia_nam
                 x509.NameAttribute(NameOID.ORGANIZATION_NAME, zuzhi_name),
                 x509.NameAttribute(NameOID.COMMON_NAME, com_name),
                 ]))
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'提交内容错误！'}
     try:
         dns_name=[x509.DNSName(i) for i in beiyong_name.split(',')]
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'备用名请用逗号隔开！'}
     csr_add_extension=csr_subject_name.add_extension(x509.SubjectAlternativeName(dns_name),critical=False,)
     if mysf == 'RSA':
@@ -275,8 +275,8 @@ def create_cert(subject_com_name,subject_bumen_name,subject_zuzhi_name,subject_c
                 x509.NameAttribute(NameOID.ORGANIZATION_NAME, subject_zuzhi_name),
                 x509.NameAttribute(NameOID.COMMON_NAME, subject_com_name),
                 ]))
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'提交内容错误！'}
     # 添加issuer信息
     builder=builder.issuer_name(
@@ -291,14 +291,14 @@ def create_cert(subject_com_name,subject_bumen_name,subject_zuzhi_name,subject_c
     try:
         builder=builder.not_valid_before(datetime.datetime.strptime(before_time,'%Y-%m-%d %H:%M:%S'))
         builder=builder.not_valid_after(datetime.datetime.strptime(after_time,'%Y-%m-%d %H:%M:%S'))
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'过期时间小于颁发时间！'}
     builder=builder.serial_number(x509.random_serial_number())
     ##################
     try:
         dns_name=[x509.DNSName(i) for i in beiyong_name.split(',')]
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'备用名请用逗号隔开！'}
     builder=builder.add_extension(x509.SubjectAlternativeName(dns_name),critical=False)
 

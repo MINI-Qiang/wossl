@@ -1,2 +1,2 @@
-from app import rsa
-import views
+from rsa.app import rsa
+import rsa.views

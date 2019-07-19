@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from app import cer
-from base import readCER
+from cer.app import cer
+from cer.base import readCER
 from flask import render_template,request
 
 # 证书查看

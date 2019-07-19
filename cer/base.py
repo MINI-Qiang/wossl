@@ -17,8 +17,8 @@ def readCER(pem_req_data):
     cer=None
     try:
         cer=x509.load_pem_x509_certificate(pem_req_data,default_backend())
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'证书内容错误！'}
     if isinstance(cer,x509.Certificate):
         rep_result={}
@@ -44,7 +44,7 @@ def readCER(pem_req_data):
         # 获取密钥强度
         try:
             rep_result['public_key_size']=str(cer.public_key().key_size)
-        except Exception,e:
+        except Exception as e:
             return {'error':False,'msg':u'无法识别：未知加密算法！'}
         # 证书指纹
         rep_result['cert_hash_sha1']=binascii.hexlify(cer.fingerprint(hashes.SHA1()))

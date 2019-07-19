@@ -15,9 +15,11 @@ OpenSSL管理平台为OpenSSL操作提供可视化的界面，方便快捷地完
 - Github:https://github.com/wossl33/wossl
 - 交流群：364788699
 ### 预览
-![浏览1](https://gitee.com/uploads/images/2018/0102/120319_153356a7_1700467.png "浏览1")
-![浏览2](https://gitee.com/uploads/images/2018/0102/120339_8f796ee9_1700467.png "浏览2")
-![浏览3](https://gitee.com/uploads/images/2018/0102/120352_90554ee3_1700467.png "浏览3")
+
+flask
+cryptography
+pycryptodome
+
 ### 项目部署
 ##### 测试环境
 切换至工作目录,运行python run.py

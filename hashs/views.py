@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from app import hashs
-from base import md_sha_hash,hmac_hash
+from hashs.app import hashs
+from hashs.base import md_sha_hash,hmac_hash
 from flask import render_template,request
 
 @hashs.route('/cry_hash')

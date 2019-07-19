@@ -1,2 +1,2 @@
-from app import feis
-import views
+from feis.app import feis
+import feis.views

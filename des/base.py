@@ -19,8 +19,8 @@ def encrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = AES.new(key,AES.MODE_CTR,counter=Counter.new(AES.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'key或iv长度错误！'}
     try:
         if cipher_flag == 'DES':
@@ -36,8 +36,8 @@ def encrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = DES.new(key,DES.MODE_CTR,counter=Counter.new(DES.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'key或iv长度错误！'}
     try:
         if cipher_flag == '3DES':
@@ -53,8 +53,8 @@ def encrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = DES3.new(key,DES3.MODE_CTR,counter=Counter.new(DES3.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'key或iv长度错误！'}
     #这里密钥key 长度必须为16（AES-128）,
     #24（AES-192）,或者32 （AES-256）Bytes 长度
@@ -64,13 +64,14 @@ def encrypt(text,cipher_flag,key,mode,iv,out_mode):
     if count < length:
         add = (length-count)
         #\0 backspace
-        text = text + ('\0' * add)
+        text = (text + ('\0' * add)).encode('utf-8')
+        print(text)
     elif count > length:
         add = (length-(count % length))
-        text = text + ('\0' * add)
+        text = (text + ('\0' * add)).encode('utf-8')
     try:
         ciphertext = cryptor.encrypt(text)
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'加密失败！'}
     #因为AES加密时候得到的字符串不一定是ascii字符集的，输出到终端或者保存时候可能存在问题
     #所以这里统一把加密后的字符串转化为16进制字符串
@@ -96,7 +97,7 @@ def decrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = AES.new(key,AES.MODE_CTR,counter=Counter.new(AES.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'key或iv长度错误！'}
     try:
         if cipher_flag == 'DES':
@@ -112,8 +113,8 @@ def decrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = DES.new(key,DES.MODE_CTR,counter=Counter.new(DES.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'key或iv长度错误！'}
     try:
         if cipher_flag == '3DES':
@@ -129,7 +130,7 @@ def decrypt(text,cipher_flag,key,mode,iv,out_mode):
                 cryptor = DES3.new(key,DES3.MODE_CTR,counter=Counter.new(DES3.block_size*8))
             else:
                 return {'error':False,'msg':u'未知模式！'}
-    except Exception,e:
+    except Exception as e:
         return {'error':False,'msg':u'key或iv长度错误！'}
     try:
         if out_mode =='base64':
@@ -138,9 +139,9 @@ def decrypt(text,cipher_flag,key,mode,iv,out_mode):
             return {'error':True,'msg':cryptor.decrypt(a2b_hex(text)).rstrip('\0').decode('utf-8')}
         else:
             return {'error':True,'msg':cryptor.decrypt(a2b_hex(text)).rstrip('\0').decode('utf-8')}
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
         return {'error':False,'msg':u'解密失败！'}
 
 if __name__=='__main__':
-    print encrypt(b'xxxx','DES','zzzzxyz2zzz3wwww','CTR','00000000','base64')
+    print(encrypt(b'xxxx','DES','zzzzxyz2zzz3wwww','CTR','00000000','base64'))
